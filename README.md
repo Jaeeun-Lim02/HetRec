@@ -1,5 +1,12 @@
 # Non-LLMRec: A Lightweight Recommendation Framework Inspired by LLM Analysis
 
+## Data download
+To run the code, please download the required dataset (zip file):
+```base
+cd data/
+gdown --id YOUR_FILE_ID --output data.zip
+unzip data.zip
+
 ## Examples to run the codes
 
 The command to evaluate the backbone models and RLMRec is as follows.
