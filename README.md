@@ -4,8 +4,23 @@
 To run the code, please download the required dataset (zip file):
 ```base
 cd data/
-gdown --id YOUR_FILE_ID --output data.zip
+gdown --id 11KSbG2o7c_xZT6xd0xCtMNpsZ8sIntEv --output data.zip
 unzip data.zip
+```
+
+Each dataset consists of:
+```
+amazon(yelp/steam)
+├── trn_mat.pkl      # training set (sparse matrix)
+├── val_mat.pkl      # validation set (sparse matrix)
+├── tst_mat.pkl      # test set (sparse matrix)
+├── usr_prf.pkl      # user profile text
+├── itm_prf.pkl      # item profile text
+├── usr_emb_np.pkl   # user text embedding
+├── itm_emb_np.pkl   # item text embedding
+├── usr_emb_bert4rec_knn.pkl   # user bert4rec + knn embedding
+└── itm_emb_bert4rec_knn.pkl   # item bert4rec + knn embedding
+```
 
 ## Examples to run the codes
 
