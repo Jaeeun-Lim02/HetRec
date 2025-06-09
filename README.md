@@ -4,8 +4,10 @@
 To run the code, please download the required dataset (zip file):
 ```base
 cd data/
+# pip install gdown
 gdown --id 11KSbG2o7c_xZT6xd0xCtMNpsZ8sIntEv --output data.zip
 unzip data.zip
+mv data/amazon . && mv data/yelp . && rm -rf data
 ```
 
 Each dataset consists of:
