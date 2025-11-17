@@ -1,4 +1,4 @@
-# Non-LLMRec: A Lightweight Recommendation Framework Inspired by LLM Analysis
+# Temporal and Neighborhood Heterogeneity for Collaborative Filtering Inspired by LLM-based Models
 
 ## Data download
 To run the code, please download the required dataset (zip file):
