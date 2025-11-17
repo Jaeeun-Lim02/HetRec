@@ -37,7 +37,7 @@ The command to evaluate the backbone models and RLMRec is as follows.
   ```bash
   python encoder/train_encoder.py --model {model_name}_plus --dataset {dataset} --cuda 0
 
-- **Non-LLMRec**
+- **Our**
   ```bash
   python encoder/train_encoder.py --model {model_name}_plus --dataset {dataset} --emb bert4rec_knn --cuda 0
 
