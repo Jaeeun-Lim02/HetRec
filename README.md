@@ -5,7 +5,7 @@ To run the code, please download the required dataset (zip file):
 ```base
 cd data/
 # pip install gdown
-gdown --folder https://drive.google.com/file/d/1_dn4S6z-y64pOluQ2vcselaSmNrkW8do/view?usp=sharing
+gdown https://drive.google.com/uc?id=1_dn4S6z-y64pOluQ2vcselaSmNrkW8do
 
 unzip data.zip
 mv data/amazon . && mv data/yelp . && rm -rf data
