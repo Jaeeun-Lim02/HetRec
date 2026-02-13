@@ -1,4 +1,4 @@
-# Temporal and Neighborhood Heterogeneity for Collaborative Filtering Inspired by LLM-based Models
+# A Lightweight Text-Free Collaborative Filtering Framework with Heterogeneous Signals and Neighborhood Enrichment
 
 ## Data download
 To run the code, please download the required dataset (zip file):
