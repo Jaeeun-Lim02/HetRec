@@ -22,7 +22,9 @@ amazon(yelp/steam)
 ├── usr_emb_np.pkl   # user text embedding
 ├── itm_emb_np.pkl   # item text embedding
 ├── usr_emb_bert4rec_knn.pkl   # user bert4rec + knn embedding
-└── itm_emb_bert4rec_knn.pkl   # item bert4rec + knn embedding
+├── itm_emb_bert4rec_knn.pkl   # item bert4rec + knn embedding
+├── usr_emb_item2vec_knn.pkl   # user item2vec + knn embedding
+└── itm_emb_item2vec_knn.pkl   # item item2vec + knn embedding
 ```
 
 ## Examples to run the codes
@@ -40,7 +42,8 @@ The command to evaluate the backbone models and RLMRec is as follows.
 - **HetRec**
   ```bash
   python encoder/train_encoder.py --model {model_name}_plus --dataset {dataset} --emb bert4rec_knn --cuda 0
+  python encoder/train_encoder.py --model {model_name}_plus --dataset {dataset} --emb item2vec_knn --cuda 0
 
 Supported models/datasets:
-- **model_name:** `gccf`, `lightgcn`, `sgl`, `simgcl`, `autocf`
+- **model_name:** `sgl`, `simgcl`, `gccf`, `autocf`, `lightgcn`
 - **dataset:** `amazon`, `yelp`
