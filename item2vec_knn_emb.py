@@ -4,9 +4,6 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-# =========================================================
-# 0) 설정 (item2vec과 동일한 형태)
-# =========================================================
 DATASET = "amazon"
 DATA_DIR = os.path.join("./data", DATASET)
 
@@ -23,9 +20,6 @@ TOP_K = 10
 ALPHA = 0.8
 
 
-# =========================================================
-# 1) Utils
-# =========================================================
 
 def upgrade(emb, sim, top_k, alpha):
     out = emb.copy()
@@ -39,9 +33,6 @@ def upgrade(emb, sim, top_k, alpha):
     return out
 
 
-# =========================================================
-# 2) Main
-# =========================================================
 
 def main():
     print(f"[INFO] dataset={DATASET}, top_k={TOP_K}, alpha={ALPHA}")
