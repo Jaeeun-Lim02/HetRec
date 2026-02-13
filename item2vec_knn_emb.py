@@ -10,14 +10,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 DATASET = "amazon"
 DATA_DIR = os.path.join("./data", DATASET)
 
-IN_USER_PKL = os.path.join(DATA_DIR, "usr_emb_bert4rec_raw.pkl")
-IN_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_bert4rec_raw.pkl")
+IN_USER_PKL = os.path.join(DATA_DIR, "usr_emb_item2vec_raw.pkl")
+IN_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_item2vec_raw.pkl")
 
 TRN_MAT_PATH = os.path.join(DATA_DIR, "trn_mat.pkl")
 VAL_MAT_PATH = os.path.join(DATA_DIR, "val_mat.pkl")
 
-OUT_USER_PKL = os.path.join(DATA_DIR, "usr_emb_bert4rec_knn.pkl")
-OUT_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_bert4rec_knn.pkl")
+OUT_USER_PKL = os.path.join(DATA_DIR, "usr_emb_item2vec_knn.pkl")
+OUT_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_item2vec_knn.pkl")
 
 TOP_K = 10
 ALPHA = 0.8
@@ -68,7 +68,7 @@ def main():
 
     print("[SAVE]", OUT_USER_PKL)
     print("[SAVE]", OUT_ITEM_PKL)
-    print("[DONE] BERT4Rec KNN embedding generation finished.")
+    print("[DONE] Item2Vec KNN embedding generation finished.")
 
 
 if __name__ == "__main__":
