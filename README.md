@@ -1,4 +1,4 @@
-# A Lightweight Text-Free Collaborative Filtering Framework with Heterogeneous Signals and Neighborhood Enrichment
+# Revisiting LLM-Enhanced Collaborative Filtering: A Text-Free Alternative with Heterogeneous Interaction Signals
 
 ## Data download
 To run the code, please download the required dataset (zip file):
