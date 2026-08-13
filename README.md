@@ -67,8 +67,6 @@ gdown -O data.zip \
   "https://drive.google.com/uc?id=1057TVnYetztiE2lckpJAj1fgRplLiMXG"
 
 unzip data.zip
-mv data/* .
-rmdir data
 rm data.zip
 cd ..
 ```
