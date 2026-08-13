@@ -12,7 +12,7 @@ from torch.utils.data import IterableDataset, DataLoader
 # =========================================================
 # 0) 설정 (그냥 실행되도록 하드코딩)
 # =========================================================
-DATA_DIR = "./data/yelp"
+DATA_DIR = "./data/steam"
 SEQ_USER_PATH = os.path.join(DATA_DIR, "seq_user_data.jsonl")
 SEQ_ITEM_PATH = os.path.join(DATA_DIR, "seq_item_data.jsonl")
 TRN_MAT_PATH = os.path.join(DATA_DIR, "trn_mat.pkl")
@@ -27,9 +27,9 @@ SEED = 2026
 
 # Item2Vec hyperparams
 EMBED_DIM = 256
-WINDOW = 10
-NEG_K = 30
-EPOCHS = 10        
+WINDOW = 5
+NEG_K = 10
+EPOCHS = 50
 LR = 1e-4
 BATCH_SIZE = 4096
 
@@ -38,12 +38,12 @@ USER_LAST_K = 20
 USER_POOLING = "recent_linear"   # "mean" or "recent_linear"
 
 # negative sampling
-NEG_POWER = 0.5  # 0.5 / 0.75 / 1.0 튜닝 가능
+NEG_POWER = 0.75  # 0.5 / 0.75 / 1.0 튜닝 가능
 
 # ✅ Dynamic window / Subsampling (핵심 개선)
-USE_DYNAMIC_WINDOW = True         
-USE_SUBSAMPLING = True
-SUBSAMPLE_T = 3e-4     # 1e-5 ~ 1e-4 추천
+USE_DYNAMIC_WINDOW = True
+USE_SUBSAMPLING = False
+SUBSAMPLE_T = 5e-4     # 1e-5 ~ 1e-4 추천
 
 # ✅ item embedding 저장 방식
 SAVE_INOUT_AVG = True   # True면 (in+out)/2 저장, False면 in_emb만 저장
@@ -63,9 +63,6 @@ def seed_everything(seed):
         torch.cuda.manual_seed_all(seed)
 
 
-# =========================================================
-# 1) Utils
-# =========================================================
 def read_seq_jsonl(path: str):
     seqs = {}
     with open(path, "r", encoding="utf-8") as f:
@@ -261,7 +258,7 @@ def main():
     print("[INFO] Train Item2Vec (SGNS)")
     model.train()
 
-    rng = np.random.default_rng()
+    rng = np.random.default_rng(SEED)
 
     for ep in range(1, EPOCHS + 1):
         total_loss = 0.0
@@ -346,7 +343,7 @@ def main():
 
     print("[SAVE]", OUT_USER_PKL)
     print("[SAVE]", OUT_ITEM_PKL)
-    print("[DONE] Yelp Item2Vec enhanced embedding generation finished.")
+    print("[DONE] Steam Item2Vec enhanced embedding generation finished.")
 
 
 if __name__ == "__main__":

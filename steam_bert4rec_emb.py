@@ -12,7 +12,7 @@ from torch.utils.data import Dataset, DataLoader
 # =========================================================
 # 0) 설정 (item2vec과 동일한 형태)
 # =========================================================
-DATA_DIR = "./data/amazon"
+DATA_DIR = "./data/steam"
 SEQ_USER_PATH = os.path.join(DATA_DIR, "seq_user_data.jsonl")
 SEQ_ITEM_PATH = os.path.join(DATA_DIR, "seq_item_data.jsonl")
 TRN_MAT_PATH = os.path.join(DATA_DIR, "trn_mat.pkl")
@@ -25,7 +25,7 @@ GPU_ID = 0
 SEED = 2026
 
 # BERT4Rec hyperparams
-MAX_LEN = 30
+MAX_LEN = 50
 EMBED_DIM = 1024
 BATCH_SIZE = 128
 EPOCHS = 500
@@ -128,7 +128,9 @@ class BERT4Rec(nn.Module):
             dropout=dropout,
             batch_first=True,
         )
-        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        self.encoder = nn.TransformerEncoder(
+            encoder_layer, num_layers=num_layers, enable_nested_tensor=False
+        )
         self.mlm_head = nn.Linear(embed_dim, vocab_size)
         self.max_len = max_len
 
@@ -243,6 +245,8 @@ def main():
         emb = np.zeros((num_users, EMBED_DIM), dtype=np.float32)
         with torch.no_grad():
             for uid, seq in seq_data.items():
+                if not seq:
+                    continue
                 seq_trim = seq[-MAX_LEN:]
                 if len(seq_trim) < MAX_LEN:
                     seq_trim = [0] * (MAX_LEN - len(seq_trim)) + seq_trim
@@ -260,7 +264,7 @@ def main():
 
     print("[SAVE]", OUT_USER_PKL)
     print("[SAVE]", OUT_ITEM_PKL)
-    print("[DONE] Amazon BERT4Rec embedding generation finished.")
+    print("[DONE] Steam BERT4Rec embedding generation finished.")
 
 
 if __name__ == "__main__":
