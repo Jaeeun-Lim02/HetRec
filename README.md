@@ -62,7 +62,11 @@ Download and extract the preprocessed datasets as follows:
 
 ```bash
 cd data
-gdown "https://drive.google.com/file/d/1057TVnYetztiE2lckpJAj1fgRplLiMXG"
+
+gdown --fuzzy \
+  "https://drive.google.com/file/d/1057TVnYetztiE2lckpJAj1fgRplLiMXG/view?usp=sharing" \
+  -O data.zip
+
 unzip data.zip
 mv data/* .
 rmdir data
