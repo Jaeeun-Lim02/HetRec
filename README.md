@@ -46,4 +46,4 @@ The command to evaluate the backbone models and RLMRec is as follows.
 
 Supported models/datasets:
 - **model_name:** `sgl`, `simgcl`, `gccf`, `autocf`, `lightgcn`
-- **dataset:** `amazon`, `yelp`
+- **dataset:** `amazon`, `yelp`, `steam`
