@@ -21,9 +21,9 @@ OUT_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_item2vec_raw.pkl")
 GPU_ID = 0
 SEED = 2026
 
-EMBED_DIM = 256
-WINDOW = 5
-NEG_K = 10
+EMBED_DIM = 512
+WINDOW = 3
+NEG_K = 30
 EPOCHS = 50
 LR = 1e-4
 BATCH_SIZE = 4096
