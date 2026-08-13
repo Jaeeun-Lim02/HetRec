@@ -15,7 +15,7 @@ model through contrastive learning.
 
 <!-- Export Figure 2 from the final paper to assets/hetrec_overview.png. -->
 <p align="center">
-  <img src="assets/hetrec_overview.png" width="850" alt="Overview of HetRec">
+  <img src="./HetRec.png" width="850" alt="Overview of HetRec">
 </p>
 
 ## Environment
