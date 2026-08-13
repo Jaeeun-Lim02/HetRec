@@ -9,9 +9,7 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
 
-# =========================================================
-# 0) 설정 (item2vec과 동일한 형태)
-# =========================================================
+
 DATA_DIR = "./data/yelp"
 SEQ_USER_PATH = os.path.join(DATA_DIR, "seq_user_data.jsonl")
 SEQ_ITEM_PATH = os.path.join(DATA_DIR, "seq_item_data.jsonl")
@@ -24,7 +22,6 @@ OUT_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_bert4rec_raw.pkl")
 GPU_ID = 0
 SEED = 2026
 
-# BERT4Rec hyperparams
 MAX_LEN = 65
 EMBED_DIM = 1024
 BATCH_SIZE = 256
@@ -49,9 +46,7 @@ def seed_everything(seed):
         torch.cuda.manual_seed_all(seed)
 
 
-# =========================================================
-# 1) Utils
-# =========================================================
+
 def read_seq_jsonl(path: str):
     seqs = {}
     with open(path, "r", encoding="utf-8") as f:
@@ -79,13 +74,10 @@ def make_split_item_seq(full_seq_item, mat):
 
 
 def shift_user_item_ids(seq_user_dict, offset=1):
-    # Shift item ids so that 0 is reserved for padding.
     return {uid: [i + offset for i in seq] for uid, seq in seq_user_dict.items()}
 
 
-# =========================================================
-# 2) Dataset
-# =========================================================
+
 class MaskedSeqDataset(Dataset):
     def __init__(self, seq_data, max_len, mask_prob, mask_token):
         self.seqs = list(seq_data.values())
@@ -113,9 +105,7 @@ class MaskedSeqDataset(Dataset):
         return torch.tensor(inp, dtype=torch.long), torch.tensor(tgt, dtype=torch.long)
 
 
-# =========================================================
-# 3) Model
-# =========================================================
+
 class BERT4Rec(nn.Module):
     def __init__(self, vocab_size, max_len, embed_dim, n_heads, num_layers, ff_mult, dropout):
         super().__init__()
@@ -140,16 +130,13 @@ class BERT4Rec(nn.Module):
         h = self.token_emb(x) + self.pos_emb(pos)
         h = self.encoder(h, src_key_padding_mask=pad_mask)
         logits = self.mlm_head(h)
-        # Mean pooling over non-padding tokens
         valid = (~pad_mask).unsqueeze(-1).float()
         denom = valid.sum(dim=1).clamp(min=1.0)
         user_emb = (h * valid).sum(dim=1) / denom
         return logits, user_emb
 
 
-# =========================================================
-# 4) Main
-# =========================================================
+
 
 def main():
     seed_everything(SEED)
@@ -168,14 +155,12 @@ def main():
 
     seq_user_data = make_split_user_seq(full_seq_user, merged_mat)
     seq_item_data = make_split_item_seq(full_seq_item, merged_mat)
-    # Reserve 0 for padding; shift item ids to 1..num_items
     seq_user_data = shift_user_item_ids(seq_user_data, offset=1)
 
     num_users = max(seq_user_data.keys()) + 1
     num_items = max(seq_item_data.keys()) + 1
     print(f"[INFO] #users={num_users}, #items={num_items}")
 
-    # vocab: [PAD=0] + items(1..num_items) + [MASK=num_items+1]
     mask_token = num_items + 1
     vocab_size = num_items + 2
 
@@ -238,7 +223,6 @@ def main():
     print("[INFO] Extract embeddings...")
     model.eval()
     with torch.no_grad():
-        # item id i maps to token id (i + 1)
         itm_emb_raw = model.token_emb.weight[1:num_items + 1].cpu().numpy().astype(np.float32)
 
     def get_user_embeddings(seq_data):
