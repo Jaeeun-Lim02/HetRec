@@ -63,9 +63,8 @@ Download and extract the preprocessed datasets as follows:
 ```bash
 cd data
 
-gdown --fuzzy \
-  "https://drive.google.com/file/d/1057TVnYetztiE2lckpJAj1fgRplLiMXG/view?usp=sharing" \
-  -O data.zip
+gdown -O data.zip \
+  "https://drive.google.com/uc?id=1057TVnYetztiE2lckpJAj1fgRplLiMXG"
 
 unzip data.zip
 mv data/* .
