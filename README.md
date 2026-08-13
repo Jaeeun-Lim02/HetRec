@@ -64,7 +64,7 @@ Download and extract the preprocessed datasets as follows:
 cd data
 
 gdown -O data.zip \
-  "https://drive.google.com/uc?id=1057TVnYetztiE2lckpJAj1fgRplLiMXG"
+  "https://drive.google.com/uc?id=1f46ARh4l6sN9L2YsnZlfvPCMs0P4FR6Y"
 
 unzip data.zip
 rm data.zip
