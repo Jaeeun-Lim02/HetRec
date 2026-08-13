@@ -23,30 +23,34 @@ The paper is published under the
 
 ## Environment
 
-The code is intended to run on Linux with an NVIDIA GPU. The following setup is
-recommended for reproducibility:
+Experiments were conducted on a Linux system with an NVIDIA GPU using the
+following software environment:
 
-- Linux
-- Python 3.9
-- PyTorch 1.13.1
-- CUDA 11.6
-- PyTorch Geometric extensions: `torch-scatter` and `torch-sparse`
+- Python 3.10
+- PyTorch 2.11.0 (CUDA 12.8 build)
+- NumPy 2.2.6
+- SciPy 1.15.2
+- scikit-learn 1.7.2
+- PyYAML 6.0.3
+- tqdm 4.70.0
+- gdown (used only for dataset download)
 
-Other Python 3.7+ and PyTorch versions may work, but have not been tested.
+Create the environment as follows:
 
 ```bash
-conda create -n hetrec python=3.9 -y
+conda create -n hetrec python=3.10 -y
 conda activate hetrec
 
-pip install torch==1.13.1+cu116 \
-  torchvision==0.14.1+cu116 \
-  torchaudio==0.13.1 \
-  --extra-index-url https://download.pytorch.org/whl/cu116
+pip install torch==2.11.0 \
+  --index-url https://download.pytorch.org/whl/cu128
 
-pip install torch-scatter torch-sparse \
-  -f https://data.pyg.org/whl/torch-1.13.1+cu116.html
-
-pip install numpy scipy scikit-learn pyyaml tqdm gdown
+pip install \
+  numpy==2.2.6 \
+  scipy==1.15.2 \
+  scikit-learn==1.7.2 \
+  pyyaml==6.0.3 \
+  tqdm==4.70.0 \
+  gdown
 ```
 
 If a different CUDA version is used, install the matching PyTorch and PyTorch
@@ -105,6 +109,7 @@ python encoder/train_encoder.py \
 python encoder/train_encoder.py \
   --model <model>_plus \
   --dataset <dataset> \
+  --emb np \
   --cuda 0
 ```
 
@@ -167,7 +172,15 @@ If you find this repository useful, please cite our paper:
 Publication metadata such as page numbers can be added after the ACM Digital
 Library record becomes available.
 
-## Acknowledgements
+## Acknowledgments
+
+This work was supported by the 2026 Research Grant from Kangwon National
+University (Project No. 202605170001); the Institute of Information
+Communications Technology Planning Evaluation (IITP)–Innovative Human Resource
+Development for Local Intellectualization program grant funded by the Korea
+government (MSIT) (IITP-2026-RS-2023-00260267); and the National Research
+Foundation of Korea (NRF) grant funded by the Korea government (MSIT)
+(RS-2023-00242528).
 
 This implementation builds upon
 [RLMRec](https://github.com/HKUDS/RLMRec). We thank the authors for making their
