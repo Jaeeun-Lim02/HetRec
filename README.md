@@ -13,7 +13,10 @@ model through contrastive learning.
 **Paper:** [ACM Digital Library / DOI](https://doi.org/10.1145/3799682.3839906)
 (the link will become active after publication)
 
-<!-- Export Figure 2 from the final paper to assets/hetrec_overview.png. -->
+**Publication:** CIKM '26, November 7--11, 2026, Rome, Italy, 5 pages.
+The paper is published under the
+[Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
 <p align="center">
   <img src="./HetRec.png" width="850" alt="Overview of HetRec">
 </p>
@@ -150,8 +153,12 @@ If you find this repository useful, please cite our paper:
   title     = {Revisiting {LLM}-Enhanced Collaborative Filtering: A Text-Free Alternative with Heterogeneous Interaction Signals},
   booktitle = {Proceedings of the 35th ACM International Conference on Information and Knowledge Management},
   year      = {2026},
+  month     = nov,
   publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
   location  = {Rome, Italy},
+  numpages  = {5},
+  isbn      = {979-8-4007-2539-5/2026/11},
   doi       = {10.1145/3799682.3839906},
   url       = {https://doi.org/10.1145/3799682.3839906}
 }
@@ -159,6 +166,12 @@ If you find this repository useful, please cite our paper:
 
 Publication metadata such as page numbers can be added after the ACM Digital
 Library record becomes available.
+
+## Acknowledgements
+
+This implementation builds upon
+[RLMRec](https://github.com/HKUDS/RLMRec). We thank the authors for making their
+code publicly available.
 
 ## License
 
