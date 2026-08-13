@@ -9,23 +9,18 @@ import torch.nn as nn
 from torch.utils.data import IterableDataset, DataLoader
 
 
-# =========================================================
-# 0) 설정 (그냥 실행되도록 하드코딩)
-# =========================================================
 DATA_DIR = "./data/steam"
 SEQ_USER_PATH = os.path.join(DATA_DIR, "seq_user_data.jsonl")
 SEQ_ITEM_PATH = os.path.join(DATA_DIR, "seq_item_data.jsonl")
 TRN_MAT_PATH = os.path.join(DATA_DIR, "trn_mat.pkl")
 VAL_MAT_PATH = os.path.join(DATA_DIR, "val_mat.pkl")
 
-# ✅ output: 기존 파일 덮어쓰기 싫으면 이름 바꾸면 됨
 OUT_USER_PKL = os.path.join(DATA_DIR, "usr_emb_item2vec_raw.pkl")
 OUT_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_item2vec_raw.pkl")
 
 GPU_ID = 0
 SEED = 2026
 
-# Item2Vec hyperparams
 EMBED_DIM = 256
 WINDOW = 5
 NEG_K = 10
@@ -33,25 +28,19 @@ EPOCHS = 50
 LR = 1e-4
 BATCH_SIZE = 4096
 
-# user embedding extraction
 USER_LAST_K = 20
-USER_POOLING = "recent_linear"   # "mean" or "recent_linear"
+USER_POOLING = "recent_linear"   
 
-# negative sampling
-NEG_POWER = 0.75  # 0.5 / 0.75 / 1.0 튜닝 가능
+NEG_POWER = 0.75  
 
-# ✅ Dynamic window / Subsampling (핵심 개선)
 USE_DYNAMIC_WINDOW = True
 USE_SUBSAMPLING = False
-SUBSAMPLE_T = 5e-4     # 1e-5 ~ 1e-4 추천
+SUBSAMPLE_T = 5e-4     
 
-# ✅ item embedding 저장 방식
-SAVE_INOUT_AVG = True   # True면 (in+out)/2 저장, False면 in_emb만 저장
+SAVE_INOUT_AVG = True   
 
-# (옵션) 저장 시 L2 normalize (side embedding에서 종종 유리)
 L2_NORMALIZE = True
 
-# for speed
 NUM_WORKERS = 2
 
 
@@ -119,9 +108,7 @@ def l2_normalize(x: np.ndarray, eps: float = 1e-12):
     return x / (n + eps)
 
 
-# =========================================================
-# 2) Iterable Dataset: (center, context) pairs
-# =========================================================
+
 class SkipGramPairDataset(IterableDataset):
     def __init__(self, user_seqs, window=5, use_dynamic_window=True,
                  use_subsampling=False, keep_prob=None):
@@ -130,14 +117,13 @@ class SkipGramPairDataset(IterableDataset):
         self.window = window
         self.use_dynamic_window = use_dynamic_window
         self.use_subsampling = use_subsampling
-        self.keep_prob = keep_prob  # np.array[num_items]
+        self.keep_prob = keep_prob  
 
     def __iter__(self):
         for seq in self.user_seqs:
             if len(seq) < 2:
                 continue
 
-            # ✅ Subsampling: 인기 아이템을 확률적으로 drop
             if self.use_subsampling and self.keep_prob is not None:
                 filtered = []
                 for x in seq:
@@ -151,7 +137,6 @@ class SkipGramPairDataset(IterableDataset):
             for i in range(L):
                 c = seq[i]
 
-                # ✅ Dynamic window
                 if self.use_dynamic_window:
                     w = random.randint(1, self.window)
                 else:
@@ -173,9 +158,7 @@ def collate_pairs(batch):
     return centers, contexts
 
 
-# =========================================================
-# 3) Item2Vec Model (SGNS)
-# =========================================================
+
 class Item2Vec(nn.Module):
     def __init__(self, num_items, embed_dim):
         super().__init__()
@@ -195,15 +178,12 @@ class Item2Vec(nn.Module):
         return pos_score, neg_score
 
 
-# =========================================================
-# 4) Main
-# =========================================================
+
 def main():
     seed_everything(SEED)
     device = torch.device(f"cuda:{GPU_ID}" if torch.cuda.is_available() else "cpu")
     print("[INFO] device:", device)
 
-    # --- Load 4 files (same protocol: train+val merged)
     full_seq_user = read_seq_jsonl(SEQ_USER_PATH)
     full_seq_item = read_seq_jsonl(SEQ_ITEM_PATH)
 
@@ -221,19 +201,15 @@ def main():
     num_items = max(seq_item_data.keys()) + 1
     print(f"[INFO] #users={num_users}, #items={num_items}")
 
-    # --- sequences list for training
     user_seqs = list(seq_user_data.values())
 
-    # --- negative sampling distribution + counts
     neg_probs, counts = build_unigram_table(user_seqs, num_items=num_items, power=NEG_POWER)
 
-    # --- subsampling keep prob
     keep_prob = None
     if USE_SUBSAMPLING:
         keep_prob = build_subsample_keep_prob(counts, t=SUBSAMPLE_T)
         print(f"[INFO] Subsampling enabled: t={SUBSAMPLE_T}")
 
-    # --- dataset / loader
     dataset = SkipGramPairDataset(
         user_seqs,
         window=WINDOW,
@@ -249,12 +225,10 @@ def main():
         collate_fn=collate_pairs,
     )
 
-    # --- model
     model = Item2Vec(num_items=num_items, embed_dim=EMBED_DIM).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
     bce = nn.BCEWithLogitsLoss()
 
-    # --- training
     print("[INFO] Train Item2Vec (SGNS)")
     model.train()
 
@@ -268,7 +242,6 @@ def main():
             centers = centers.to(device)
             pos_ctx = pos_ctx.to(device)
 
-            # negative sampling (CPU->GPU)
             neg_ctx = rng.choice(
                 num_items,
                 size=(centers.size(0), NEG_K),
@@ -298,7 +271,6 @@ def main():
 
         print(f"[EPOCH {ep}/{EPOCHS}] avg_loss={total_loss/max(steps,1):.6f}")
 
-    # --- extract item embeddings
     print("[INFO] Extract embeddings...")
     model.eval()
     with torch.no_grad():
@@ -316,7 +288,6 @@ def main():
         itm_emb = l2_normalize(itm_emb)
         print("[INFO] L2-normalized item embeddings")
 
-    # --- user embedding
     usr_emb = np.zeros((num_users, EMBED_DIM), dtype=np.float32)
     with torch.no_grad():
         for uid, seq in seq_user_data.items():
@@ -328,14 +299,12 @@ def main():
             if USER_POOLING == "mean":
                 usr_emb[uid] = vecs.mean(axis=0)
             elif USER_POOLING == "recent_linear":
-                # ✅ 최근일수록 더 큰 가중치
                 w = np.linspace(1.0, 2.0, num=len(s), dtype=np.float32)
                 w = w / (w.sum() + 1e-12)
                 usr_emb[uid] = (vecs * w[:, None]).sum(axis=0)
             else:
                 usr_emb[uid] = vecs.mean(axis=0)
 
-    # --- save
     with open(OUT_USER_PKL, "wb") as f:
         pickle.dump(usr_emb, f)
     with open(OUT_ITEM_PKL, "wb") as f:
