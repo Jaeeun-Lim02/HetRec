@@ -17,7 +17,7 @@ VAL_MAT_PATH = os.path.join(DATA_DIR, "val_mat.pkl")
 OUT_USER_PKL = os.path.join(DATA_DIR, "usr_emb_bert4rec_raw.pkl")
 OUT_ITEM_PKL = os.path.join(DATA_DIR, "itm_emb_bert4rec_raw.pkl")
 
-GPU_ID = 1
+GPU_ID = 0
 
 MAX_LEN = 30
 EMBED_DIM = 1024
