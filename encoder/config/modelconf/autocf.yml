@@ -49,8 +49,3 @@ model:
     gcn_layer: 2
     reg_weight: 6.0e-8
     ssl_reg: 5
-  # for steam
-  steam:
-    gcn_layer: 2
-    reg_weight: 1.0e-6
-    ssl_reg: 5
