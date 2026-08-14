@@ -44,9 +44,3 @@ model:
     reg_weight: 1.0e-7     
     kd_weight: 1.0e-1
     kd_temperature: 1.5
-  # for steam:
-  steam:
-    layer_num: 3
-    reg_weight: 1.0e-7
-    kd_weight: 1.0e-1
-    kd_temperature: 0.5
