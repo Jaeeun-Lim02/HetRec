@@ -55,10 +55,3 @@ model:
     ssl_reg: 5
     kd_weight: 0.4
     kd_temperature: 3.0
-  # for steam
-  steam:
-    gcn_layer: 2
-    reg_weight: 1.0e-6
-    ssl_reg: 5
-    kd_weight: 2.0e-1    
-    kd_temperature: 2.0
