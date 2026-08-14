@@ -40,7 +40,3 @@ model:
   yelp:
     layer_num: 3
     reg_weight: 1.0e-6
-  # for steam
-  steam:
-    layer_num: 3
-    reg_weight: 1.0e-6
