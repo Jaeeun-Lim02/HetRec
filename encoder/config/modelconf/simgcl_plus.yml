@@ -55,12 +55,3 @@ model:
     kd_weight: 3.0e-2
     kd_temperature: 0.25
     eps: 0.9
-  # for steam
-  steam:
-    layer_num: 3
-    reg_weight: 1.0e-5
-    cl_weight: 1.0e-1
-    cl_temperature: 0.8
-    kd_weight: 3.0e-2      
-    kd_temperature: 0.25    
-    eps: 0.2
