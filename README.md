@@ -74,7 +74,7 @@ cd ..
 Each dataset directory follows this structure:
 
 ```text
-amazon/  # The same structure is used for yelp and steam.
+amazon/  # The same structure is used for yelp.
 ├── trn_mat.pkl                   # Training interactions
 ├── val_mat.pkl                   # Validation interactions
 ├── tst_mat.pkl                   # Test interactions
@@ -137,7 +137,7 @@ python encoder/train_encoder.py \
 Supported options:
 
 - `<model>`: `sgl`, `simgcl`, `gccf`, `autocf`, or `lightgcn`
-- `<dataset>`: `amazon`, `yelp`, or `steam`
+- `<dataset>`: `amazon`, `yelp`
 
 For example:
 
