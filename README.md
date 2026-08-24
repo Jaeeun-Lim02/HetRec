@@ -65,8 +65,7 @@ After downloading, extract the archive and place the dataset folders directly un
 ```text
 data/
 ├── amazon/
-├── yelp/
-└── steam/
+└── yelp/
 ```
 
 Each dataset directory follows this structure:
