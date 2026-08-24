@@ -156,17 +156,9 @@ If you find this repository useful, please cite our paper:
 ```bibtex
 @inproceedings{lim2026revisiting,
   author    = {Lim, Jaeeun and Lee, Jae-woong},
-  title     = {Revisiting {LLM}-Enhanced Collaborative Filtering: A Text-Free Alternative with Heterogeneous Interaction Signals},
+  title     = {Revisiting LLM-Enhanced Collaborative Filtering: A Text-Free Alternative with Heterogeneous Interaction Signals},
   booktitle = {Proceedings of the 35th ACM International Conference on Information and Knowledge Management},
-  year      = {2026},
-  month     = nov,
-  publisher = {Association for Computing Machinery},
-  address   = {New York, NY, USA},
-  location  = {Rome, Italy},
-  numpages  = {5},
-  isbn      = {979-8-4007-2539-5/2026/11},
-  doi       = {10.1145/3799682.3839906},
-  url       = {https://doi.org/10.1145/3799682.3839906}
+  year      = {2026}
 }
 ```
 
