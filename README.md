@@ -56,7 +56,7 @@ pip install \
 If a different CUDA version is used, install the matching PyTorch and PyTorch
 Geometric wheels.
 
-## 📂 Data
+## 🗂️ Data
 
 Download and extract the preprocessed datasets as follows:
 
