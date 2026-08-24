@@ -21,7 +21,7 @@ The paper is published under the
   <img src="./HetRec.png" width="850" alt="Overview of HetRec">
 </p>
 
-## Environment
+## ⚙️ Environment
 
 Experiments were conducted on a Linux system with an NVIDIA GPU using the
 following software environment:
@@ -56,7 +56,7 @@ pip install \
 If a different CUDA version is used, install the matching PyTorch and PyTorch
 Geometric wheels.
 
-## Data
+## 📂 Data
 
 Download and extract the preprocessed datasets as follows:
 
@@ -91,7 +91,7 @@ amazon/  # The same structure is used for yelp.
 The interaction-derived auxiliary embeddings are precomputed offline. Running
 HetRec therefore requires neither text input nor an LLM API.
 
-## Usage
+## 🚀 Usage
 
 Replace `<model>` and `<dataset>` with one of the supported names listed below.
 
@@ -149,7 +149,7 @@ python encoder/train_encoder.py \
   --cuda 0
 ```
 
-## Citation
+## 📚 Citation
 
 If you find this repository useful, please cite our paper:
 
@@ -165,7 +165,7 @@ If you find this repository useful, please cite our paper:
 Publication metadata such as page numbers can be added after the ACM Digital
 Library record becomes available.
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 This work was supported by the 2026 Research Grant from Kangwon National
 University (Project No. 202605170001); the Institute of Information
@@ -179,7 +179,7 @@ This implementation builds upon
 [RLMRec](https://github.com/HKUDS/RLMRec). We thank the authors for making their
 code publicly available.
 
-## License
+## ⚖️ License
 
 This project is released under the [Apache License 2.0](LICENSE). Please also
 comply with the licenses and terms of the upstream codebases and datasets used
