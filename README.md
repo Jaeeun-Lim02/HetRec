@@ -58,17 +58,15 @@ Geometric wheels.
 
 ## 🗂️ Data
 
-Download and extract the preprocessed datasets as follows:
+Download the preprocessed datasets from [Google Drive](https://drive.google.com/file/d/1fO1UxTgD1lG_n58h1uTf8iZ3yDQNri8H/view?usp=drive_link).
 
-```bash
-cd data
+After downloading, extract the archive and place the dataset folders directly under the `data/` directory:
 
-gdown -O data.zip \
-  "https://drive.google.com/uc?id=1fO1UxTgD1lG_n58h1uTf8iZ3yDQNri8H"
-
-unzip data.zip
-rm data.zip
-cd ..
+```text
+data/
+├── amazon/
+├── yelp/
+└── steam/
 ```
 
 Each dataset directory follows this structure:
