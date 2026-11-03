@@ -11,7 +11,6 @@ similarity-aware k-nearest-neighbor aggregation, and aligns them with a base CF
 model through contrastive learning.
 
 **Paper:** [ACM Digital Library / DOI](https://doi.org/10.1145/3799682.3839906)
-(the link will become active after publication)
 
 **Publication:** CIKM '26, November 7--11, 2026, Rome, Italy, 5 pages.
 The paper is published under the
@@ -155,12 +154,11 @@ If you find this repository useful, please cite our paper:
   author    = {Lim, Jaeeun and Lee, Jae-woong},
   title     = {Revisiting LLM-Enhanced Collaborative Filtering: A Text-Free Alternative with Heterogeneous Interaction Signals},
   booktitle = {Proceedings of the 35th ACM International Conference on Information and Knowledge Management},
-  year      = {2026}
+  year      = {2026},
+  doi       = {10.1145/3799682.3839906},
+  url       = {https://doi.org/10.1145/3799682.3839906}
 }
 ```
-
-Publication metadata such as page numbers can be added after the ACM Digital
-Library record becomes available.
 
 ## 🙏 Acknowledgments
 
